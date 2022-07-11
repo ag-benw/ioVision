@@ -1,15 +1,15 @@
-const path = require("path");
+const path = require('path');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: path.join(__dirname, "src", "index.jsx"),
+  entry: path.join(__dirname, 'src', 'index.jsx'),
   output: {
-    path: path.resolve(__dirname, "public/assets"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'public/assets'),
+    filename: 'bundle.js',
   },
   mode: 'development',
   watch: true,
@@ -20,7 +20,7 @@ module.exports = {
         exclude: [
           /node_modules/,
         ],
-        use: ['babel-loader']
+        use: ['babel-loader'],
       },
       {
         test: /\.(css|scss)$/,
@@ -28,8 +28,8 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader',
-          'postcss-loader'
-        ]
+          'postcss-loader',
+        ],
       },
     ],
   },
@@ -38,7 +38,7 @@ module.exports = {
     minimizer: [new CssMinimizerPlugin(), new TerserPlugin({
       test: /\.js(\?.*)?$/i,
       parallel: true,
-      extractComments: false
+      extractComments: false,
     })],
     splitChunks: {
       cacheGroups: {
@@ -47,23 +47,23 @@ module.exports = {
           type: 'css/mini-extract',
           test: /\.css$/,
           chunks: 'all',
-          enforce: true
-        }
-      }
-    }
+          enforce: true,
+        },
+      },
+    },
   },
   plugins: [
     new ESLintPlugin({
       context: './src',
       files: ['**/*.js'],
-      failOnError: false
+      failOnError: false,
     }),
     new ExtractCssChunks({
-      filename: '[name].css'
+      filename: '[name].css',
     }),
     new MiniCssExtractPlugin(),
   ],
   resolve: {
-    modules: [path.resolve(__dirname, 'node_modules'), 'node_modules']
-  }
+    modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
+  },
 };
