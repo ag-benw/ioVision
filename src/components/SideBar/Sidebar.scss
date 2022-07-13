@@ -1,0 +1,29 @@
+.nav-bar {
+  height: 100vh;
+  transition: width 0.5s ease, visibility 0s, display 0s, opacity 0.8s ease;
+
+  &.expanded {
+    width: 24em;
+
+    .icon-text {
+      opacity: 1;
+      visibility: visible;
+      display: block;
+    }
+  }
+
+  &.collapsed {
+    width: 6em;
+
+    .icon-text {
+      opacity: 0;
+      visibility: hidden;
+      display: none;
+    }
+  }
+
+  .menu {
+    height: 100%;
+    width: 100%;
+  }
+}

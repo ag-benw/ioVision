@@ -1,63 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
+import './Button.scss';
+import './Sidebar.scss';
+
 import LogoMark from '../LogoMark/LogoMark.jsx';
 import MenuIcon from '../Icons/MenuIcon.jsx';
 import MenuItem from '../MenuItems/MenuItem.jsx';
-import DashboardIcon from '../Icons/DashboardIcon.jsx';
-import HomeIcon from '../Icons/HomeIcon.jsx';
-import ProjectsIcon from '../Icons/ProjectsIcon.jsx';
-import TasksIcon from '../Icons/TasksIcon.jsx';
-import ReportingIcon from '../Icons/ReportingIcon.jsx';
 import UserCard from '../User/UserCard.jsx';
+import SidebarData from '../../data/SidebarData.jsx';
 
 function SideBar() {
+  const [sidebar, toggleSidebar] = useState(true);
+
+  const expandSidebar = () => toggleSidebar(!sidebar);
+
   return (
-    <aside className="h-screen">
-      <div className="w-96 h-full bg-shade-one rounded-tr-lg rounded-br-lg flex justify-between flex-col">
+    <aside className={sidebar ? 'nav-bar expanded' : 'nav-bar collapsed'}>
+      <div className="menu w-96 bg-shade-one rounded-tr-lg rounded-br-lg flex justify-between flex-col">
         <div>
           <header className="p-6 flex justify-between">
             <LogoMark />
-            <MenuIcon />
+            <button type="button" onClick={expandSidebar}>
+              <MenuIcon />
+            </button>
           </header>
           <ul>
-            <li className="flex justify-start align-center px-6 py-2">
-              <HomeIcon />
-              <MenuItem title="Home" />
-            </li>
-            <li className="flex justify-start align-center px-6 py-2">
-              <DashboardIcon className="fill-primary" />
-              <MenuItem title="Dashboard" />
-            </li>
-            <li className="flex justify-start align-center px-6 py-2">
-              <ProjectsIcon className="fill-primary" />
-              <MenuItem title="Projects" />
-            </li>
-            <li className="flex justify-start align-center px-6 py-2">
-              <TasksIcon className="fill-primary" />
-              <MenuItem title="Tasks" />
-            </li>
-            <li className="flex justify-start align-center px-6 py-2">
-              <ReportingIcon className="fill-primary" />
-              <MenuItem title="Reporting" />
-            </li>
+            {SidebarData.map((item) => (
+              <li
+                className={
+                    sidebar
+                      ? 'flex justify-start items-center px-6 py-2'
+                      : 'flex justify-start items-center px-2 py-2'
+                  }
+              >
+                <NavLink
+                  to={item.path}
+                  className={
+                      sidebar
+                        ? 'btn w-full h-12 px-2 rounded-md flex items-center hover:bg-shade-two transition-colors duration-200'
+                        : 'btn w-full h-12 px-2 rounded-md flex justify-center items-center hover:bg-shade-two transition-colors duration-200'
+                    }
+                >
+                  {item.icon}
+                  <MenuItem title={item.title} />
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
-        <div className="flex flex-col">
-          <ul>
-            <li className="flex justify-start align-center px-6 py-2">
-              <HomeIcon />
-              <MenuItem title="Notifications" />
-            </li>
-            <li className="flex justify-start align-center px-6 py-2">
-              <DashboardIcon className="fill-primary" />
-              <MenuItem title="Support" />
-            </li>
-            <li className="flex justify-start align-center px-6 py-2">
-              <ProjectsIcon className="fill-primary" />
-              <MenuItem title="Settings" />
-            </li>
-          </ul>
-          <UserCard />
-        </div>
+        <UserCard openSidebar={!!sidebar} />
       </div>
     </aside>
   );

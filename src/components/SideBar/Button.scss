@@ -1,0 +1,16 @@
+.btn {
+  display: flex;
+  color: #9e9e9e;
+
+  svg {
+    color: white;
+  }
+
+    &.active {
+      color: #BFB2FF;
+
+      svg {
+        color: #BFB2FF;
+      }
+   }
+}

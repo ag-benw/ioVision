@@ -1,10 +1,10 @@
 import React from 'react';
 import MoreSettings from '../MoreSettings/MoreSettings.jsx';
 
-function UserCard() {
+function UserCard(props) {
   return (
     <div className="user__section p-4 rounded-md">
-      <MoreSettings />
+      <MoreSettings openSidebar={props.openSidebar} />
     </div>
   );
 }
